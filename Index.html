@@ -569,26 +569,20 @@
                     });
                 });
 
-                // Contact form submission
+                // code for submit
                 document.getElementById('contactForm').addEventListener('submit', (e) => {
                     e.preventDefault();
                     this.handleContactForm();
                 });
 
-                // Scroll events
+                // code for scroll events
                 window.addEventListener('scroll', () => {
                     this.updateProgressBar();
                     this.toggleScrollTopButton();
                 });
-
-                // Keyboard accessibility
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeModals();
-                    }
-                });
             }
 
+            // code to scrool into some section
             scrollToSection(sectionId) {
                 const element = document.getElementById(sectionId);
                 if (element) {
@@ -600,6 +594,7 @@
                 }
             }
 
+            // code for smooth scroll animation
             setupScrollAnimation() {
                 const observerOptions = {
                     threshold: 0.1,
@@ -619,6 +614,7 @@
                 });
             }
 
+            // start of code for making loading progreass bar
             setupProgressBar() {
                 this.updateProgressBar();
             }
@@ -630,7 +626,9 @@
                 
                 document.getElementById('progressBar').style.width = scrollPercent + '%';
             }
+            // end of code for making loading progress bar
 
+            // code for scroll to top button
             toggleScrollTopButton() {
                 const scrollTopBtn = document.getElementById('scrollTopBtn');
                 if (window.pageYOffset > 300) {
@@ -640,6 +638,7 @@
                 }
             }
 
+            // code for scrolling to top
             scrollToTop() {
                 window.scrollTo({
                     top: 0,
@@ -647,18 +646,20 @@
                 });
             }
 
+            // code to end loading mockup
             hideLoading() {
                 setTimeout(() => {
                     document.getElementById('loadingOverlay').classList.add('hidden');
                 }, 1000);
             }
 
+            // code for handling contact form submission mockup
             handleContactForm() {
                 const nama = document.getElementById('nama').value;
                 const email = document.getElementById('email').value;
                 const pesan = document.getElementById('pesan').value;
 
-                // Simulate form submission
+                // code for simulating form submission mockup
                 this.showNotification('Sedang mengirim pesan...', 'info');
 
                 setTimeout(() => {
@@ -674,18 +675,12 @@
                 if (navigator.clipboard && window.isSecureContext) {
                     navigator.clipboard.writeText(text);
                 } else {
-                    // Fallback for older browsers
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
+                    alert('Browser tidak support fungsi untuk mengcopy teks');
                 }
             }
 
+            // code for creating toast notification
             showNotification(message, type = 'info') {
-                // Create toast notification
                 const toastContainer = document.getElementById('toastContainer') || this.createToastContainer();
                 
                 const toast = document.createElement('div');
@@ -706,12 +701,13 @@
                 const bsToast = new bootstrap.Toast(toast);
                 bsToast.show();
 
-                // Remove toast after it's hidden
+                // code for remove toast when its hidden
                 toast.addEventListener('hidden.bs.toast', () => {
                     toast.remove();
                 });
             }
 
+            // code for making toast container
             createToastContainer() {
                 const container = document.createElement('div');
                 container.id = 'toastContainer';
@@ -721,43 +717,13 @@
                 return container;
             }
 
+             // code for close any open modal or dropdowm
             closeModals() {
-                // Close any open modals/dropdowns
                 const openModals = document.querySelectorAll('.modal.show');
                 openModals.forEach(modal => {
                     bootstrap.Modal.getInstance(modal)?.hide();
                 });
             }
-        }
-
-        // Global functions for backward compatibility
-        function scrollToSection(sectionId) {
-            website.scrollToSection(sectionId);
-        }
-
-        function showTips() {
-            website.showTips();
-        }
-
-        function generatePDF() {
-            website.generatePDF();
-        }
-
-        function scrollToTop() {
-            website.scrollToTop();
-        }
-
-        // Initialize website when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            window.website = new WeldingWebsite();
-        });
-
-        // Performance optimization
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Register service worker for caching (optional)
-                console.log('Service worker support detected');
-            });
         }
     </script>
 </body>
